@@ -12,22 +12,15 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const {onLogin, onRegister} = useAuth();
 
-  const testcall = async () =>{
-        const result = await axios.get(`${API_URL}/status`);
-        console.log(result.data);
-  };
   const login = async () => {
     const result = await onLogin!(username, password);
-    if(result){
-      alert("success")
-    }
     if(result && result.error) {
       alert(result.msg);
     };
   };
 
   const register = async () => {
-    const result = await onRegister!(username, email, password);
+    const result = await onRegister!(username, "test@test.com", password);
     if(result && result.error) {
       alert(result.msg);
     } else{
@@ -38,9 +31,10 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.root}>
       <Image style={[styles.logo, {height: height * 0.3}]} source={{uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
-      <TextInput placeholder='Username' value={username} onChangeText={setUsername} secureTextEntry={false}/>
-      <TextInput placeholder='Password' value={password} onChangeText={setPassword} secureTextEntry={true}/>
+      <CustomInput placeholder='Username' value={username} setValue={setUsername} secureText={false}/>
+      <CustomInput placeholder='Password' value={password} setValue={setPassword} secureText={true}/>
       <Button onPress={login} title='Login' />
+      <Button onPress={register} title='Register'/>
     </SafeAreaView>
   )
 }
