@@ -10,7 +10,7 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = 'my-jwt';
-export const API_URL = 'https://10.0.2.2:3000'
+export const API_URL = 'http://localhost:3000'
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {
@@ -51,9 +51,9 @@ export const AuthProvider = ({children}: any) => {
         }
     };
 
-    const login = async (username: string, password: string) => {
+    const login = async (userName: string, Password: string) => {
         try{
-            const result = await axios.post(`${API_URL}/auth/login`, {username, password});
+            const result = await axios.post(`${API_URL}/auth/login`, {username: userName, password: Password});
             console.log("login - result: ", result)
             setAuthState({
                 token: result.data.token,
