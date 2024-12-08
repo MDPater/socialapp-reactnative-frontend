@@ -17,14 +17,12 @@ export default function App() {
 }
 
 export const Layout = () => {
-  const { authState, onLogout} = useAuth();
+  const { authState} = useAuth();
   return (<NavigationContainer>
     <Stack.Navigator>
       {authState?.authenticated ? (
-        <Stack.Screen name="Home" component={Home} options={{
-          headerRight: () => <Button onPress={onLogout} title='Sign Out'/>
-        }}></Stack.Screen>
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
       ): (<Stack.Screen name='Login' component={Login}></Stack.Screen>)}
     </Stack.Navigator>
   </NavigationContainer>);
-}
+};

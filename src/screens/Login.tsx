@@ -1,9 +1,8 @@
 import {  StyleSheet, Image, useWindowDimensions, Button, TextInput} from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { API_URL, useAuth } from '../context/AuthContext';
+import React, { useState } from 'react'
+import { useAuth } from '../context/AuthContext';
 import CustomInput from '../components/CustomInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import axios from 'axios';
 
 const Login = () => {
   const {height} = useWindowDimensions();
@@ -15,14 +14,14 @@ const Login = () => {
   const login = async () => {
     const result = await onLogin!(username, password);
     if(result && result.error) {
-      alert(result.msg);
+      alert(result.data);
     };
   };
 
   const register = async () => {
-    const result = await onRegister!(username, "test@test.com", password);
+    const result = await onRegister!(username, "test1@test.com", password);
     if(result && result.error) {
-      alert(result.msg);
+      alert(result.data);
     } else{
       login();
     }

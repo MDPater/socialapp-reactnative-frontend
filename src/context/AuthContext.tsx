@@ -45,10 +45,11 @@ export const AuthProvider = ({children}: any) => {
 
     const register = async (username: string, email: string, password: string) => {
         try{
-            const result =  await axios.post(`${API_URL}/auth/register`, {username: username,email: email,password: password});
-            console.log("login - result: ", result.data)
+            const result =  await axios.post(`${API_URL}/auth/register`, {username: username,email: email,password: password})
+            console.log("register - result: ", result.data)
         } catch(e) {
-            return {error: true, msg: (e as any).response.data.msg}
+            console.log((e as any).response.data.error.message)
+            return {error: true, msg: (e as any).response.data.error.message}
         }
     };
 
@@ -57,18 +58,19 @@ export const AuthProvider = ({children}: any) => {
             const result = await axios.post(`${API_URL}/auth/login`, {username: username, password: password});
             console.log("login - result: ", result.data)
             setAuthState({
-                token: result.data.token,
+                token: result.data.data.token,
                 authenticated: true,
             })
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.data.token}`;
 
-            await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
+            await SecureStore.setItemAsync(TOKEN_KEY, result.data.data.token);
 
             return result;
 
         } catch(e) {
-            return {error: true, msg: (e as any).response.data.msg}
+            console.log((e as any).response.data. error.message)
+            return {error: true, msg: (e as any).response.data.error.message}
         }
     };
 
