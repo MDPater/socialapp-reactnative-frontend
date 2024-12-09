@@ -1,4 +1,4 @@
-import { View, Text , TextInput, StyleSheet} from 'react-native'
+import { View, TextInput, StyleSheet} from 'react-native'
 import React from 'react'
 
 const CustomInput  = ({value, setValue, placeholder, secureText}: 
@@ -19,7 +19,7 @@ const CustomInput  = ({value, setValue, placeholder, secureText}:
 const styles = StyleSheet.create({
     container:{
         backgroundColor: 'white',
-        width: '100%',
+        width: '80%',
 
         borderColor: '#e8e8e8',
         borderWidth: 2,

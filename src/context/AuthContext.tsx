@@ -1,4 +1,4 @@
-import { Children, createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 
@@ -10,7 +10,7 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = 'my-jwt';
-export const API_URL = 'http://192.168.178.109:3000'
+export const API_URL = 'https://snap-share.net'
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {

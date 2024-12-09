@@ -1,15 +1,15 @@
-import {  StyleSheet, Image, useWindowDimensions, Button, TextInput} from 'react-native'
+import {  StyleSheet, Image, useWindowDimensions, Button} from 'react-native'
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import CustomInput from '../components/CustomInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import CustomButton from '../components/CustomButton';
 
-const Login = () => {
+const Login = ({navigation} : any) => {
   const {height} = useWindowDimensions();
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {onLogin, onRegister} = useAuth();
+  const {onLogin} = useAuth();
 
   const login = async () => {
     const result = await onLogin!(username, password);
@@ -18,22 +18,13 @@ const Login = () => {
     };
   };
 
-  const register = async () => {
-    const result = await onRegister!(username, "test1@test.com", password);
-    if(result && result.error) {
-      alert(result.data);
-    } else{
-      login();
-    }
-  }
-
   return (
     <SafeAreaView style={styles.root}>
-      <Image style={[styles.logo, {height: height * 0.3}]} source={{uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
+      <Image style={[styles.logo, {height: height * 0.4}]} source={{uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
       <CustomInput placeholder='Username' value={username} setValue={setUsername} secureText={false}/>
       <CustomInput placeholder='Password' value={password} setValue={setPassword} secureText={true}/>
+      <CustomButton onPress={() => {navigation.goBack('Register')}} title='Register'/>
       <Button onPress={login} title='Login' />
-      <Button onPress={register} title='Register'/>
     </SafeAreaView>
   )
 }
@@ -49,7 +40,7 @@ const styles = StyleSheet.create({
     width: '70%',
     margin: 8,
     maxWidth: 300,
-    maxHeight: 200,
+    maxHeight: 300,
   },
 });
 export default Login
