@@ -58,8 +58,8 @@ const Register = ({navigation} : any) => {
         errors.password ='Password is required';
       }else if(password.length < 6){
         errors.password = 'Password must be atleast 6 Characters';
-      }else if(password && confirmPassword){
-        errors.password = 'Password doesnt match';
+      }else if(password == confirmPassword){
+        errors.confirmPassword = 'Password doesnt match';
       }
 
       setErrors(errors);
@@ -87,11 +87,7 @@ const Register = ({navigation} : any) => {
       <CustomInput placeholder='Confirm Password' value={confirmPassword} setValue={setConfirmPassword} secureText={true}/>
       <CustomButton onPress={() => {navigation.navigate('Login')}} title='Login'/>
       <Button onPress={handleSubmit} title='Register' />
-      {Object.values(errors).map((error, index) => (
-        <Text key={index} style={styles.error}>
-          {error}
-        </Text>
-      ))}
+      
     </SafeAreaView>
   )
 }
