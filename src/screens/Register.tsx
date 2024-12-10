@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Image, useWindowDimensions } from 'react-native'
+import { Button, StyleSheet, Image, useWindowDimensions, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import CustomInput from '../components/CustomInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -48,11 +48,35 @@ const Register = ({navigation} : any) => {
 
       //validate Email
       if(!email){
-        
+        errors.email = 'Email is required';
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errors.email = 'Email is invalid.';
+      }
+
+      //validate Password
+      if(!password){
+        errors.password ='Password is required';
+      }else if(password.length < 6){
+        errors.password = 'Password must be atleast 6 Characters';
+      }else if(password && confirmPassword){
+        errors.password = 'Password doesnt match';
       }
 
       setErrors(errors);
+      setIsFormValid(Object.keys(errors).length == 0);
     }
+
+    const handleSubmit = () => {
+    if (isFormValid) {
+
+      // Form is valid, perform the submission logic
+      console.log('Form submitted successfully!');
+    }else{
+          
+        // Form is invalid, display error messages
+        console.log('Form has errors. Please correct them.');
+    }
+  };
 
     return (
     <SafeAreaView style={styles.root}>
@@ -62,7 +86,12 @@ const Register = ({navigation} : any) => {
       <CustomInput placeholder='Password' value={password} setValue={setPassword} secureText={true}/>
       <CustomInput placeholder='Confirm Password' value={confirmPassword} setValue={setConfirmPassword} secureText={true}/>
       <CustomButton onPress={() => {navigation.navigate('Login')}} title='Login'/>
-      <Button onPress={register} title='Register' />
+      <Button onPress={handleSubmit} title='Register' />
+      {Object.values(errors).map((error, index) => (
+        <Text key={index} style={styles.error}>
+          {error}
+        </Text>
+      ))}
     </SafeAreaView>
   )
 }
