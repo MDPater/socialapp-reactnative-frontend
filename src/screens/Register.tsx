@@ -1,16 +1,24 @@
 import { Button, StyleSheet, Image, useWindowDimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomInput from '../components/CustomInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 import CustomButton from '../components/CustomButton';
 
 const Register = ({navigation} : any) => {
+    const {onLogin, onRegister} = useAuth();
     const {height} = useWindowDimensions();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {onLogin, onRegister} = useAuth();
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [errors, setErrors] = useState({});
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    useEffect(() => {
+      //validate inputs on change
+      validateForm();
+    }, [username, email, password, confirmPassword])
 
     const login = async () => {
         const result = await onLogin!(username, password);
@@ -26,6 +34,24 @@ const Register = ({navigation} : any) => {
         } else{
           login();
         }
+    };
+
+    const validateForm = () => {
+      let errors: any = {};
+
+      //validate Username
+      if(!username){
+        errors.username = 'No Username Entered';
+      } else if(username.length < 3){
+        errors.username = 'Username should have atleast 3 characters' ;
+      }
+
+      //validate Email
+      if(!email){
+        
+      }
+
+      setErrors(errors);
     }
 
     return (
@@ -34,6 +60,7 @@ const Register = ({navigation} : any) => {
       <CustomInput placeholder='Username' value={username} setValue={setUsername} secureText={false}/>
       <CustomInput placeholder='Email' value={email} setValue={setEmail} secureText={false}/>
       <CustomInput placeholder='Password' value={password} setValue={setPassword} secureText={true}/>
+      <CustomInput placeholder='Confirm Password' value={confirmPassword} setValue={setConfirmPassword} secureText={true}/>
       <CustomButton onPress={() => {navigation.navigate('Login')}} title='Login'/>
       <Button onPress={register} title='Register' />
     </SafeAreaView>
