@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const FormHeader = () => {
+const FormHeader = ({leftHeading, rightHeading, subHeading}: any) => {
   return <>
   <View style={styles.container}>
-      <Text style={styles.heading}>Welcom{''}</Text>
-      <Text style={styles.heading}>Back</Text>
+      <Text style={styles.heading}>{leftHeading} </Text>
+      <Text style={styles.heading}>{rightHeading}</Text>
     </View>
-    <Text style={styles.subHeading}>Snap-Share</Text>
+    <Text style={styles.subHeading}>{subHeading}</Text>
   </>
 }
 

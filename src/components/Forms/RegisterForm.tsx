@@ -1,11 +1,9 @@
-import { Button, StyleSheet, Image, useWindowDimensions, Text } from 'react-native'
+import { Button, StyleSheet, useWindowDimensions, View, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import CustomInput from '../components/CustomInput';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAuth } from '../context/AuthContext';
-import CustomButton from '../components/CustomButton';
+import CustomInput from '../../components/CustomInput';
+import { useAuth } from '../../context/AuthContext';
 
-const Register = ({navigation} : any) => {
+const RegisterForm = ({navigation} : any) => {
     const {onLogin, onRegister} = useAuth();
     const {height} = useWindowDimensions();
     const [username, setUsername] = useState('');
@@ -78,33 +76,21 @@ const Register = ({navigation} : any) => {
     }
   };
 
-    return (
-    <SafeAreaView style={styles.root}>
-      <Image style={[styles.logo, {height: height * 0.4}]} source={{uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
+    return <View style={styles.root}>
       <CustomInput placeholder='Username' value={username} setValue={setUsername} secureText={false}/>
       <CustomInput placeholder='Email' value={email} setValue={setEmail} secureText={false}/>
       <CustomInput placeholder='Password' value={password} setValue={setPassword} secureText={true}/>
       <CustomInput placeholder='Confirm Password' value={confirmPassword} setValue={setConfirmPassword} secureText={true}/>
-      <CustomButton onPress={() => {navigation.navigate('Login')}} title='Login'/>
       <Button onPress={handleSubmit} title='Register' />
-      
-    </SafeAreaView>
-  )
+    </View>
 }
 
 const styles = StyleSheet.create({
     root: {
       alignItems: 'center',
-      padding: 12,
-      backgroundColor: '#FBFCFC',
-      height: '100%',
-    },
-    logo: {
-      width: '70%',
-      margin: 8,
-      maxWidth: 300,
-      maxHeight: 300,
-    },
+      justifyContent:'center',
+      width: Dimensions.get('window').width,
+    }
 });
 
-export default Register
+export default RegisterForm

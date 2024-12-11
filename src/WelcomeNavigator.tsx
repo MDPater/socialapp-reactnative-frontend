@@ -1,15 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import Register from './screens/Register'
-import Login from './screens/Login'
+import Welcome from './screens/Welcome';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='Login' screenOptions={{headerShown: false}}>
-        <Stack.Screen component={Register} name='Register'/>
-        <Stack.Screen component={Login} name='Login'/>
+    <Stack.Navigator initialRouteName='Welcome' screenOptions={{headerShown: false}}>
+      <Stack.Screen component={Welcome} name='Welcome'/>
     </Stack.Navigator>
   )
 };
