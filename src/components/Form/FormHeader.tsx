@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Animated } from 'react-native'
 import React from 'react'
 
-const FormHeader = ({leftHeading, rightHeading, subHeading}: any) => {
+const FormHeader = ({leftHeading, rightHeading, subHeading, leftHeaderTranslateX, rightHeaderTranslateY, rightHeaderOpacity}: any) => {
   return <>
   <View style={styles.container}>
-      <Text style={styles.heading}>{leftHeading} </Text>
-      <Text style={styles.heading}>{rightHeading}</Text>
+      <Animated.Text style={[styles.heading, {transform: [{translateX: leftHeaderTranslateX}]}]}>{leftHeading}</Animated.Text>
+      <Animated.Text style={[styles.heading, {opacity: rightHeaderOpacity, transform: [{translateY: rightHeaderTranslateY}]}]}>{rightHeading}</Animated.Text>
     </View>
     <Text style={styles.subHeading}>{subHeading}</Text>
   </>
