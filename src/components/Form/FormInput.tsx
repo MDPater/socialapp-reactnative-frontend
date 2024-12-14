@@ -1,10 +1,14 @@
-import { StyleSheet, Text, TextInput } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 
-const FormInput = ({placeholder, title}:any) => {
+const FormInput = (props : any) => {
+  const {label, placeholder, error} = props
   return <>
-    <Text style={styles.title}>{title}</Text>
-    <TextInput style={styles.input} placeholder={placeholder}/>
+  <View style={styles.container}>
+    <Text style={styles.label}>{label}</Text> 
+    <TextInput {...props} style={styles.input} placeholder={placeholder}/>
+    {error ? <Text style={{color: 'red', fontSize: 12}}>{error}</Text> :null}
+  </View>
   </>
 }
 
@@ -17,9 +21,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderRadius: 15,
         paddingLeft: 10,
-        marginBottom: 20
     },
-    title:{
+    label:{
         fontWeight: 'bold'
+    },
+    container:{
+      marginBottom: 20
     }
 })

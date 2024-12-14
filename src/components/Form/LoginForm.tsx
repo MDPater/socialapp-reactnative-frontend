@@ -18,8 +18,8 @@ const LoginForm = () => {
   };
 
   return <FormContainer>
-    <FormInput title='Username' placeholder='myspace.michael'/>
-    <FormInput title='Password' placeholder='******'/>
+    <FormInput label='Username' placeholder='myspace.michael'/>
+    <FormInput secureTextEntry={true} label='Password' placeholder='******'/>
     <FormSubmitBtn title='Login'/>
   </FormContainer>
 }

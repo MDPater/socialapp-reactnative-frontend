@@ -1,5 +1,5 @@
-import { StyleSheet, View , ScrollView, Animated, Dimensions} from 'react-native'
-import React, { useRef } from 'react'
+import { StyleSheet, View , ScrollView, Animated, Dimensions, ScrollViewProps} from 'react-native'
+import React, { RefObject, useRef } from 'react'
 import FormHeader from '../components/Form/FormHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import FormSelectorBtn from '../components/Form/FormSelectorBtn'
@@ -36,7 +36,6 @@ const Welcome = () => {
         inputRange: [0, width],
         outputRange: ['rgba(27,27,51,0.4)', 'rgba(27,27,51,1)']
     });
-
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 100}}>
         <View style={{height: 100}}>
