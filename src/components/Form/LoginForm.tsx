@@ -13,14 +13,14 @@ const LoginForm = () => {
   const login = async () => {
     const result = await onLogin!(username, password);
     if(result && result.error) {
-      alert(result.data);
+      alert(result.data.error);
     };
   };
 
   return <FormContainer>
-    <FormInput label='Username' placeholder='myspace.michael'/>
-    <FormInput secureTextEntry={true} label='Password' placeholder='******'/>
-    <FormSubmitBtn title='Login'/>
+    <FormInput value={username} onChangeText={setUsername} label='Username' placeholder='myspace.michael'/>
+    <FormInput value={password} onChangeText={setPassword} secureTextEntry={true} label='Password' placeholder='******'/>
+    <FormSubmitBtn onPress={login} title='Login'/>
   </FormContainer>
 }
 

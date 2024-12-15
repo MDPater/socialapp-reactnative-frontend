@@ -41,15 +41,10 @@ const RegisterForm = () => {
       confirmPassword: ''
     }
 
-    const submitForm = () => {
-
-    }
-
     return <FormContainer>
       <Formik initialValues={userInfo} validationSchema={validationSchema} onSubmit={(values, formikActions)=>{
+        register(values.username, values.email, values.password);
         setTimeout(()=>{
-            console.log(values)
-            register(values.username, values.email, values.password);
             formikActions.resetForm();
             formikActions.setSubmitting(false);
         }, 3000)
