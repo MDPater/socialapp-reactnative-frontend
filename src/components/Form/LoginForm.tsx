@@ -12,9 +12,11 @@ const LoginForm = () => {
 
   const login = async () => {
     const result = await onLogin!(username, password);
-    if(result && result.error) {
-      alert(result.data.error);
-    };
+    if(result.error) {
+      alert(result.msg);
+    } else {
+      console.log(result.msg)
+    }
   };
 
   return <FormContainer>

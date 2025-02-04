@@ -9,28 +9,22 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
-  username: Yup.string().trim().min(3, 'Invalid name!').required('Username is required'),
+  username: Yup.string().trim().min(3, 'Invalid name!').required('Username is required!'),
   email: Yup.string().email('Invalid Email!').required('Email is required!'),
-  password: Yup.string().trim().min(8, 'Password is too short!').required('Password is required'),
+  password: Yup.string().trim().min(8, 'Password is too short!').required('Password is required!'),
   confirmPassword: Yup.string().equals([Yup.ref('password'), null], 'Password does not match!')
 })
 
 const RegisterForm = () => {
-    const {onLogin, onRegister} = useAuth();
-
-    const login = async (username : any, password : any) => {
-        const result = await onLogin!(username, password);
-        if(result && result.error) {
-          alert(result.data);
-        };
-    };
+    const {onRegister} = useAuth();
     
     const register = async (username: any, email: any, password: any) => {
         const result = await onRegister!(username, email, password);
-        if(result && result.error) {
-          alert(result.data);
+        console.log(result);
+        if(result.error) {
+          alert(result.msg);
         } else{
-          login(username, password);
+          alert(result.msg);
         }
     };
 
@@ -45,9 +39,8 @@ const RegisterForm = () => {
       <Formik initialValues={userInfo} validationSchema={validationSchema} onSubmit={(values, formikActions)=>{
         register(values.username, values.email, values.password);
         setTimeout(()=>{
-            formikActions.resetForm();
             formikActions.setSubmitting(false);
-        }, 3000)
+        }, 1000)
       }}>
         {({values,errors, touched, handleChange,isSubmitting, handleBlur, handleSubmit}) => { 
           

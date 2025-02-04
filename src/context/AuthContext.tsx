@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
+import { ref } from "yup";
 
 interface AuthProps {
     authState?: { token: string | null; authenticated: boolean | null};
@@ -9,7 +10,7 @@ interface AuthProps {
     onLogout?: () => Promise<any>;
 }
 
-const TOKEN_KEY = 'my-jwt';
+const ACCESS_TOKEN_KEY = 'my-jwt';
 export const API_URL = 'https://snap-share.net'
 const AuthContext = createContext<AuthProps>({});
 
@@ -28,14 +29,14 @@ export const AuthProvider = ({children}: any) => {
 
     useEffect(() => {
         const loadToken = async () => {
-            const token = await SecureStore.getItemAsync(TOKEN_KEY);
-            console.log("stored: ", token)
+            const accesstoken = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
+            console.log("Authentication Token: ", accesstoken)
 
-            if(token){
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            if(accesstoken){
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accesstoken}`;
 
                 setAuthState({
-                    token: token,
+                    token: accesstoken,
                     authenticated: true,
                 })
             }
@@ -47,45 +48,58 @@ export const AuthProvider = ({children}: any) => {
         try{
             const result =  await axios.post(`${API_URL}/auth/register`, {username: username,email: email,password: password})
             console.log("register - result: ", result.data)
+            return result.data;
         } catch(e) {
-            console.log((e as any).response.data.error.message)
-            return {error: true, msg: (e as any).response.data.error.message}
+            console.log((e as any).response.data.error)
+            return {error: true, msg: (e as any).response.data.error};
         }
     };
 
     const login = async (username: string, password: string) => {
         try{
             const result = await axios.post(`${API_URL}/auth/login`, {username: username, password: password});
-            console.log("login - result: ", result.data)
+            console.log("login - result: ", result.data);
+            console.log("token: ", result.data.accessToken);
+
             setAuthState({
-                token: result.data.data.token,
+                token: result.data.accessToken,
                 authenticated: true,
             })
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.data.token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
 
-            await SecureStore.setItemAsync(TOKEN_KEY, result.data.data.token);
-
-            return result;
+            await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, result.data.accessToken);
 
         } catch(e) {
-            console.log((e as any).response.data. error.message)
-            return {error: true, msg: (e as any).response.data.error.message}
+            console.log("catch: "+(e as any).response.data.error)
+            return {error: true, msg: (e as any).response.data.error}
         }
     };
 
     const logout = async () => {
-        //Delete token from storage
-        await SecureStore.deleteItemAsync(TOKEN_KEY);
 
-        //Update axios header
-        axios.defaults.headers.common['Authorization'] = '';
+        try {
+            //delete session in DB
+            const result = await axios.post(`${API_URL}/auth/logout`);
+            console.log("logout result: ", result.data);
 
-        //Reset auth state
-        setAuthState({
-            token: null,
-            authenticated: false,
-        })
+            //Delete token from storage
+            await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
+
+            //Update axios header
+            axios.defaults.headers.common['Authorization'] = '';
+
+            //Reset auth state
+            setAuthState({
+                token: null,
+                authenticated: false,
+            })
+
+            return result.data;
+        } catch (e) {
+            console.log("catch: "+(e as any).response.data.error)
+            return e;
+        }
     };
 
     const value = {
