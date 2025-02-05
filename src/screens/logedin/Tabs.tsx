@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from '@react-native-vector-icons/common'
+import Icon from '@expo/vector-icons/Feather'
 import {StyleSheet} from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from './Home';
@@ -12,9 +12,11 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarShowLabel: false,
           tabBarStyle: {
             position: 'absolute',
             bottom: 25,
+            paddingTop: 20,
             marginLeft: 20,
             marginRight: 20,
             backgroundColor: '#fffff1',
@@ -26,11 +28,19 @@ const Tabs = () => {
     >
         <Tab.Screen name="Home" component={Home} options={{
           tabBarIcon: ({focused}) => (
-            <Icon name='home'color="#ff0000" size={20} />
+            <Icon name='home'color="#1b1b33" size={25} />
           ),
         }}/>
-        <Tab.Screen name="Create" component={Create}/>
-        <Tab.Screen name="Profile" component={Profile}/>
+        <Tab.Screen name="Create" component={Create} options={{
+          tabBarIcon: ({focused}) => (
+            <Icon name='plus-circle'color="#1b1b33" size={25} />
+          ),
+        }}/>
+        <Tab.Screen name="Profile" component={Profile} options={{
+          tabBarIcon: ({focused}) => (
+            <Icon name='user'color="#1b1b33" size={25} />
+          ),
+        }}/>
     </Tab.Navigator>
   )
 }
