@@ -1,6 +1,6 @@
 import { Text, Button } from 'react-native'
 import React from 'react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../../context/AuthContext'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {

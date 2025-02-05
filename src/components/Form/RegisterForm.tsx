@@ -24,7 +24,7 @@ const RegisterForm = () => {
         if(result.error) {
           alert(result.msg);
         } else{
-          alert(result.msg);
+          alert(result.msg +": "+ email);
         }
     };
 

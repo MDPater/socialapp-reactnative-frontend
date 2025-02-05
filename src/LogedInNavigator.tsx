@@ -1,19 +1,19 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import Home from './screens/Home';
+import Tabs from './screens/logedin/Tabs';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen component={Home} name='Home'/>
+    <Stack.Navigator initialRouteName='Tabs'>
+      <Stack.Screen component={Tabs} name='Tabs'/>
     </Stack.Navigator>
   )
 }
 
-const HomeNavigator = () => {
+const LogedInNavigator = () => {
     return <StackNavigator/>;
 }
 
-export default HomeNavigator
+export default LogedInNavigator

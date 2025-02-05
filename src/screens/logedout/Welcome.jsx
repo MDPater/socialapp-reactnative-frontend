@@ -1,10 +1,10 @@
 import { StyleSheet, View , ScrollView, Animated, Dimensions, ScrollViewProps} from 'react-native'
 import React, { RefObject, useRef } from 'react'
-import FormHeader from '../components/Form/FormHeader'
+import FormHeader from '../../components/Form/FormHeader'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import FormSelectorBtn from '../components/Form/FormSelectorBtn'
-import LoginForm from '../components/Form/LoginForm'
-import RegisterForm from '../components/Form/RegisterForm'
+import FormSelectorBtn from '../../components/Form/FormSelectorBtn'
+import LoginForm from '../../components/Form/LoginForm'
+import RegisterForm from '../../components/Form/RegisterForm'
 
 const {width} = Dimensions.get('window');
 

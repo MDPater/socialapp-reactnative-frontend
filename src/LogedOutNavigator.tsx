@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import Welcome from './screens/Welcome';
+import Welcome from './screens/logedout/Welcome';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,8 +12,8 @@ const StackNavigator = () => {
   )
 };
 
-const WelcomeNavigator = () => {
+const LogedOutNavigator = () => {
     return <StackNavigator/>;
 }
 
-export default WelcomeNavigator
+export default LogedOutNavigator

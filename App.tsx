@@ -1,11 +1,8 @@
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import WelcomeNavigator from './src/WelcomeNavigator';
-import HomeNavigator from './src/HomeNavigator';
-
-
-const Stack = createNativeStackNavigator();
+import LogedOutNavigator from './src/LogedOutNavigator';
+import LogedInNavigator from './src/LogedInNavigator';
 
 export default function App() {
   return (
@@ -21,6 +18,6 @@ export const Layout = () => {
   const { authState} = useAuth();
   return (<NavigationContainer>
       {authState?.authenticated ? 
-        <HomeNavigator/> : <WelcomeNavigator/>}
+        <LogedInNavigator/> : <LogedOutNavigator/>}
   </NavigationContainer>);
 };
