@@ -32,7 +32,7 @@ const Profile = () => {
               },
             ]}
           >
-            <Text>Test</Text>
+            <Text>Test </Text>
             <Text>MyName</Text>
           </View>
           <FormSubmitBtn
