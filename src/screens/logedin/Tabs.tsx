@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '@expo/vector-icons/Feather'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from './Home';
 import Profile from './Profile';
@@ -12,14 +12,15 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarShowLabel: false,
           tabBarStyle: {
             position: 'absolute',
             bottom: 25,
-            paddingTop: 20,
+            paddingTop: 25,
             marginLeft: 20,
             marginRight: 20,
-            backgroundColor: '#fffff1',
+            backgroundColor: '#1B1B33',
             borderRadius: 25,
             height: 90,
             ...styles.shadow
@@ -28,17 +29,29 @@ const Tabs = () => {
     >
         <Tab.Screen name="Home" component={Home} options={{
           tabBarIcon: ({focused}) => (
-            <Icon name='home'color="#1b1b33" size={25} />
+            <View>
+              <Icon name='home'color="#D5F2E3" size={25} 
+                style={{color: focused ? '#FF8811' : '#D5F2E3'}}
+              />
+            </View>
           ),
         }}/>
         <Tab.Screen name="Create" component={Create} options={{
           tabBarIcon: ({focused}) => (
-            <Icon name='plus-circle'color="#1b1b33" size={25} />
+            <View style={{height: 50,width: 100, alignItems: 'center', justifyContent: 'center'}}>
+              <Icon name='plus-circle' size={50} 
+                style={{color: focused ? '#FF8811' : '#D5F2E3'}}
+              />
+            </View>
           ),
         }}/>
         <Tab.Screen name="Profile" component={Profile} options={{
           tabBarIcon: ({focused}) => (
-            <Icon name='user'color="#1b1b33" size={25} />
+            <View>
+              <Icon name='user'color="#D5F2E3" size={25}
+                style={{color: focused ? '#FF8811' : '#D5F2E3'}}
+              />
+            </View>
           ),
         }}/>
     </Tab.Navigator>

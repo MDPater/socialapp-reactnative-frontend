@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName='Welcome' screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName='Welcome' screenOptions={{navigationBarColor: '#D5F2E3', headerShown: false}}>
       <Stack.Screen component={Welcome} name='Welcome'/>
     </Stack.Navigator>
   )
